@@ -51,6 +51,7 @@ public:
             });
         }
     }
+    // 生产者消费者模型，线程执行的函数
     void workerThread() {
         while(true) {
             std::unique_lock<std::mutex> lock(mtx);
@@ -101,6 +102,7 @@ public:
     }
 };
 
+// 文件操作
 void clear_logs(const std::string& log_directory) {
     try {
         for(const auto& entry : std::filesystem::directory_iterator(log_directory)) {
