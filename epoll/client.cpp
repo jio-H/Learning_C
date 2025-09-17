@@ -11,7 +11,18 @@
 
 using namespace std;
 
+struct buffer{
+    int x;
+    explicit buffer(int x_) : x(x_) {}
+};
+std::optional<buffer> get_(buffer buf) {
+    if(buf.x == 0) return {};
+    else return buf;
+}
 int main() {
+    
+    buffer x(10);
+    get_(x);
     
     std::vector<int> fds;
     
