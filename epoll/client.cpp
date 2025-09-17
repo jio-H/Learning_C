@@ -26,6 +26,24 @@ int main() {
     
     std::vector<int> fds;
     
+    std::optional<int> opt; // 默认构造，不包含值
+
+    if (!opt) {
+        std::cout << "opt is empty\n";
+    }
+
+    opt = 5; // 赋值
+
+    if (opt) {
+        std::cout << "opt contains: " << *opt << "\n"; // 使用*操作符访问值
+    }
+
+    opt.reset(); // 清空 optional
+
+    if (!opt) {
+        std::cout << "opt is now empty again\n";
+    }
+    
     for(int i=0; i<10; ++i) {
         fds.push_back(socket(AF_INET, SOCK_STREAM, 0));
     }
