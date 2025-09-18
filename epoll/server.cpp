@@ -107,7 +107,6 @@ int main()
                 //处理客户端的数据
                 int client_socket=events[i].data.fd;
                 int valread =read(client_socket,buffer,1024);
-
                 if(valread<=0)
                 {
                     //如果读取的数据为0或者小于0  那就是客户端已经端口连接了。先这么处理
@@ -118,6 +117,7 @@ int main()
                 else{
                     //把客户端的数据打印出来
                     std::cout<<"接收："<<buffer<<std::endl;
+                    buffer[0] = '1';
                     send(client_socket,buffer,valread,0);//再把原封不动的数据发给客户端。算是做个响应
                 }
                 std::memset(buffer,0,sizeof(buffer));
