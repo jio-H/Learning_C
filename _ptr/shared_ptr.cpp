@@ -8,7 +8,9 @@ template<typename T>
 class shared_ptr_{
 private:
     T* ptr;
+    // 原子操作
     std::atomic<int>* ref_count;
+    // 释放当前shared对象对指向对象的占有
     void release() {
         if(ref_count != nullptr) {
             (*ref_count)--;
@@ -19,26 +21,31 @@ private:
         }
     }
 public:
+    // 各种构造函数
+    // 无参构造
     shared_ptr_() : ptr(nullptr), ref_count(nullptr) {}
     
+    // 参数构造
     explicit shared_ptr_(T* p) : ptr(p), ref_count(new atomic<int>(1)) {}
     
+    // 析构函数
     ~shared_ptr_() {
         release();
     }
     
+    // 左右值引用的拷贝构造函数
     shared_ptr_(const shared_ptr_ & p) : ptr(p.ptr), ref_count(p.ref_count) {
         if(ref_count != nullptr) {
             (*ref_count)++;
         }
     }
-    
     shared_ptr_(shared_ptr_&& p) : ptr(p.ptr), ref_count(p.ref_count) {
         if(ref_count != nullptr) {
             (*ref_count)++;
         }
     }
     
+    // 左右值引用赋值重载
     shared_ptr_& operator=(const shared_ptr_& p) {
         if(this != &p) {
             release();
@@ -50,7 +57,6 @@ public:
         }
         return *this;
     }
-    
     shared_ptr_& operator=(shared_ptr_&& p) {
         if(this != &p) {
             release();
@@ -63,6 +69,7 @@ public:
         return *this;
     }
     
+    // 运算符重载
     T* operator->() {
         return ptr;
     }
