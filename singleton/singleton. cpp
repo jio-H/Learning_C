@@ -1,0 +1,34 @@
+#include<iostream>
+#include<thread>
+#include<mutex>
+
+
+using namespace std;
+
+class singleton{
+public:
+	static singleton* getInstance() {
+		if(instance == nullptr) {
+			mtx.lock();
+			if(instance == nullptr) {
+				instance = new singleton;
+			}
+			mtx.unlock();
+		}
+		return instance;
+	}
+private:
+	sigleton() = default;
+	singleton(const singleton& obj) = delete;
+	singleton operator = (const singleton& obj) = delete;
+	static singleton* instance;
+	static mutex mtx;
+}
+singleton* singleton::instance = nullptr;
+mutex singleton::mtx;
+
+int main() {
+	
+	
+	return 0;
+}
