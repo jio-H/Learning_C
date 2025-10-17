@@ -34,7 +34,7 @@ public:
         }
         new (data + size) T(std::forward<Args>(args) ... );
         return data[size++];
-    }
+    }strcap
     void pop_back() {
         if(size > 0) data[--size].~T();
     }
