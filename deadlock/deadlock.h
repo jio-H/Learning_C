@@ -9,3 +9,4 @@ struct pair_t {
     int degress;
 };
 
+
